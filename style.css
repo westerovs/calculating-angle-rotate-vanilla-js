@@ -1,0 +1,77 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
+}
+
+html,
+body {
+  font-family: Geometria;
+  background-color: #2c7580;
+  color: #ccc;
+
+  overflow: hidden;
+}
+
+.hr {
+  position: absolute;
+  top: 135px;
+  color: white;
+  z-index: 9999;
+  width: 100%;
+}
+
+.hr2 {
+  transform: rotate(90deg);
+}
+
+.hr1::after {
+  content: "160";
+}
+
+.hr2::after {
+  content: "O";
+}
+
+.screenHall__dot-wrapper {
+  outline: 4px dashed gold;
+  background-color: gray;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+}
+
+.screenHall__dot-center {
+  position: absolute;
+  top: 195px;
+  left: 195px;
+  width: 1px;
+  height: 1px;
+  z-index: 999;
+  background-color: black;
+  outline: 1px solid black;
+  outline-offset: 10px;
+}
+
+.screenHall__time {
+  /* display: flex; */
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 291px;
+  height: 291px;
+  border: 0.5px solid rgba(226, 226, 226, 0.3);
+  background-image: linear-gradient(black, black, red, black, black);
+  border-radius: 50%;
+  box-sizing: border-box;
+  z-index: 1;
+  box-sizing: border-box;
+}
