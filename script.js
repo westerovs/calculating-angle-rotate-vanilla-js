@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded',  () => {
     const step = 90 // step - шаг доводки доводится если значение шага больше 50%
     
     let Nex = null
-    let degree_angle = null
+    let degreeAngle = null
     let val = 0
     
     let swipe = null
@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded',  () => {
     
     // ------------------------------------- TOUCHSTART
     const touchStart = (event) => {
-        wheel.style.transition = 's'
         
         startSwaipe = new Date().getTime()
         startProgress = progress
@@ -50,8 +49,8 @@ document.addEventListener('DOMContentLoaded',  () => {
         
         Dist *= -1
         
-        degree_angle = Dist * (180 / Math.PI)
-        val = degree_angle + Nex
+        degreeAngle = Dist * (180 / Math.PI)
+        val = degreeAngle + Nex
         wheel.style.transform = `rotate(${ val }deg)`
     }
     
@@ -67,8 +66,8 @@ document.addEventListener('DOMContentLoaded',  () => {
         console.log('всего прошло: ' + totalTimeSwipe)
         
         if (totalTimeSwipe <= 200) {
-            if (degree_angle > 0) {
-                console.log(`totalTimeSwipe < 200`)
+            if (degreeAngle > 0) {
+                console.log('totalTimeSwipe < 200')
                 
                 wheel.style.transition = '0.5s'
                 wheel.style.transform = `rotate(${
