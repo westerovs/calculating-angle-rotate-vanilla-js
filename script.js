@@ -1,94 +1,56 @@
-document.addEventListener('DOMContentLoaded',  () => {
-    const wheel = document.querySelector('.wheel')
-    wheel.style.transform = 'rotate(0deg)'
+const wheel = document.querySelector('.wheel')
+const dot = document.querySelector('.wheel__dot')
+wheel.style.transform = 'rotate(0deg)'
+
+let progress = 0
+let startProgress = 0
+let val = 0
+let nex = null
+let degreeAngle = null
+let startTouches = null
+
+// ------------------------------------- TOUCHSTART
+const touchStart = (event) => {
+    startProgress = progress
     
-    let progress = 0
-    let startProgress = 0
-    const step = 90 // step - шаг доводки доводится если значение шага больше 50%
+    nex = wheel.style.transform    // nex  -  текущий градус поворота при touchstart
+    nex = parseFloat(nex.slice(7)) // уже не помню почему 7, что-то вычислял
     
-    let Nex = null
-    let degreeAngle = null
-    let val = 0
-    
-    let swipe = null
-    let startSwaipe = null
-    let stopSwaipe = null
-    let startMouse = null
-    
-    // ------------------------------------- TOUCHSTART
-    const touchStart = (event) => {
-        
-        startSwaipe = new Date().getTime()
-        startProgress = progress
-        Nex = wheel.style.transform // Nex  -  текущий градус поворода при touchstart
-        Nex = parseFloat(Nex.slice(7))
-        
-        startMouse = {
-            x: event.changedTouches[0].pageX,
-            y: event.changedTouches[0].pageY
-        }
-        wheel.addEventListener('touchmove', touchMove)
+    // получаем первые координаты касания
+    startTouches = {
+        x: event.changedTouches[0].pageX,
+        y: event.changedTouches[0].pageY
+    }
+}
+
+// ------------------------------------- TOUCHMOVE
+const touchMove = (event) => {
+    // получаем координаты касания
+    const touch = {
+        x: event.changedTouches[0].pageX,
+        y: event.changedTouches[0].pageY
     }
     
-    // ------------------------------------- TOUCHMOVE
-    const touchMove = (event) => {
-        let mouse = {
-            x: event.changedTouches[0].pageX,
-            y: event.changedTouches[0].pageY
-        }
-        let center = {
-            x: wheel.offsetLeft + wheel.offsetWidth / 2,
-            y: wheel.offsetTop + wheel.offsetHeight / 2
-        }
-        let Dist = Math.atan2(
-            (center.x - mouse.x) * (center.y - startMouse.y) -
-            (center.y - mouse.y) * (center.x - startMouse.x),
-            (center.x - mouse.x) * (center.x - startMouse.x) +
-            (center.y - mouse.y) * (center.y - startMouse.y)
-        )
-        
-        Dist *= -1
-        
-        degreeAngle = Dist * (180 / Math.PI)
-        val = degreeAngle + Nex
-        wheel.style.transform = `rotate(${ val }deg)`
+    // центр круга
+    const center = {
+        x: wheel.offsetLeft + wheel.offsetWidth / 2,
+        y: wheel.offsetTop + wheel.offsetHeight / 2
     }
     
-    // ------------------------------------- TOUCHEND
-    const touchEnd = () => {
-        let delay = '500ms' // время доводки
-        
-        stopSwaipe = new Date().getTime()
-        
-        let totalTimeSwipe = stopSwaipe - startSwaipe
-        
-        console.clear()
-        console.log('всего прошло: ' + totalTimeSwipe)
-        
-        if (totalTimeSwipe <= 200) {
-            if (degreeAngle > 0) {
-                console.log('totalTimeSwipe < 200')
-                
-                wheel.style.transition = '0.5s'
-                wheel.style.transform = `rotate(${
-                    Math.trunc(val / 90) * 90 + 180
-                }deg)`
-            } else {
-                wheel.style.transition = '0.5s'
-                wheel.style.transform = `rotate(${
-                    Math.trunc(val / 90) * 90 - 180
-                }deg)`
-            }
-        }
-        
-        // доводка
-        else {
-            swipe = Math.round(val / 90) * 90
-            wheel.style.transition = delay
-            wheel.style.transform = `rotate(${ swipe }deg)`
-        }
-    }
+    // дистанция от - до +
+    let distance = Math.atan2(
+      (center.x - touch.x) * (center.y - startTouches.y) - (center.y - touch.y) * (center.x - startTouches.x),
+      (center.x - touch.x) * (center.x - startTouches.x) + (center.y - touch.y) * (center.y - startTouches.y)
+    )
     
-    wheel.addEventListener('touchstart', touchStart)
-    wheel.addEventListener('touchend', touchEnd)
-})
+    distance *= -1
+    
+    degreeAngle = distance * (180 / Math.PI)
+    val = degreeAngle + nex
+    wheel.style.transform = `rotate(${ val }deg)`
+}
+
+wheel.addEventListener('touchstart', touchStart)
+wheel.addEventListener('touchmove', touchMove)
+
+
