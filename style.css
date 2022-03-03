@@ -19,6 +19,15 @@
     overflow: hidden;
 }
 
+.wrapper {
+    outline: 2px solid gold;
+    /*position: relative;*/
+    /*left: 250px;*/
+    /*top: 250px;*/
+    /*width: 291px;*/
+    /*height: 291px;*/
+}
+
 .wheel {
     position: absolute;
     left: 250px;
@@ -28,6 +37,7 @@
     border: 1px solid rgba(226, 226, 226, 0.3);
     border-radius: 50%;
     background-image: linear-gradient(black, black, gray, black, black);
+    transform-origin: center;
     z-index: 1;
 }
 
