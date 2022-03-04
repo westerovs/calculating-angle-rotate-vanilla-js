@@ -8,6 +8,7 @@
 
 .page {
     min-height: 100%;
+    overflow: hidden;
 }
 
 .page-body {
