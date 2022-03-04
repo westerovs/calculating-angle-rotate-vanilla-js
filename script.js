@@ -1,7 +1,19 @@
+const Anchor = {
+    CENTER: 'center',
+    T_L   : 'top left',
+    T_R   : 'top right',
+    B_L   : 'bottom left',
+    B_R   : 'bottom right'
+}
+
 class Wheel {
-    constructor() {
-        this.wheel = document.querySelector('.wheel')
-    
+    constructor(x, y, transformOrigin, name) {
+        this.block = null
+        this.positionWheelX = x
+        this.positionWheelY = y
+        this.transformOrigin = transformOrigin
+        this.name = name
+
         this.progress = 0
         this.startProgress = 0
         this.val = 0
@@ -13,18 +25,30 @@ class Wheel {
     }
     
     init = () => {
-        this.wheel.style.transform = `rotate(${ this.startProgress }deg)`
+        this.create()
     
-        this.wheel.addEventListener('touchstart', this.touchStart)
-        this.wheel.addEventListener('touchmove', this.touchMove)
+        this.block.addEventListener('touchstart', this.touchStart)
+        this.block.addEventListener('touchmove', this.touchMove)
+    }
+    
+    create = () => {
+        const parent = document.querySelector('.wrapper')
+        this.block = document.createElement('div')
+        this.block.className = 'wheel'
+        this.block.style.transform = `rotate(${ this.startProgress }deg)`
+        this.block.style.top = `${ this.positionWheelY }px`
+        this.block.style.left = `${ this.positionWheelX }px`
+        this.block.style.transformOrigin = this.transformOrigin
+        this.block.innerHTML = this.name
+        
+        parent.append(this.block)
     }
     
     touchStart = (event) => {
         this.startProgress = this.progress
-        
-        this.nex = this.wheel.style.transform    // this.nex  -  текущий градус поворота при touchstart
-        this.nex = parseFloat(this.nex.slice(7)) // уже не помню почему 7, что-то вычислял
-        
+        // this.nex - текущий градус поворота при touchstart / slice обрезает слово
+        this.nex = parseFloat(this.block.style.transform.slice(7))
+    
         // получаем первые координаты касания
         this.startTouches = {
             x: event.changedTouches[0].pageX,
@@ -33,17 +57,19 @@ class Wheel {
     }
     
     touchMove = (event) => {
-        // получаем координаты касания
+        // получаем координаты текущего касания
         const touch = {
             x: event.changedTouches[0].pageX,
             y: event.changedTouches[0].pageY
         }
         
-        // центр круга
+        // центр объекта
         const center = {
-            x: this.wheel.offsetLeft + this.wheel.offsetWidth / 2,
-            y: this.wheel.offsetTop + this.wheel.offsetHeight / 2
+            x: this.block.offsetLeft + this.block.offsetWidth / 2,
+            y: this.block.offsetTop + this.block.offsetHeight / 2
         }
+        
+        console.log(this.block.offsetTop)
         
         // дистанция от - до +
         let distance = Math.atan2(
@@ -55,8 +81,12 @@ class Wheel {
         
         this.degreeAngle = distance * (180 / Math.PI)
         this.val = this.degreeAngle + this.nex
-        this.wheel.style.transform = `rotate(${ this.val }deg)`
+        this.block.style.transform = `rotate(${ this.val }deg)`
     }
 }
 
-new Wheel()
+new Wheel(200, 200, Anchor.T_L, 'T_L')
+new Wheel(400, 400, Anchor.CENTER, 'center')
+new Wheel(600, 200, Anchor.T_R, 'T_R')
+new Wheel(200, 600, Anchor.B_L, 'B_L')
+new Wheel(600, 600, Anchor.B_R, 'B_R')

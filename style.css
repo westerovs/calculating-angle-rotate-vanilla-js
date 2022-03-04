@@ -20,7 +20,8 @@
 }
 
 .wrapper {
-    outline: 2px solid gold;
+    /*outline: 2px solid gold;*/
+    /*position: absolute;*/
     /*position: relative;*/
     /*left: 250px;*/
     /*top: 250px;*/
@@ -30,15 +31,18 @@
 
 .wheel {
     position: absolute;
-    left: 250px;
-    top: 250px;
-    width: 291px;
-    height: 291px;
+    width: 200px;
+    height: 200px;
     border: 1px solid rgba(226, 226, 226, 0.3);
-    border-radius: 50%;
+    /*border-radius: 50%;*/
     background-image: linear-gradient(black, black, gray, black, black);
-    transform-origin: center;
+    /*transform-origin: center;*/
     z-index: 1;
+    line-height: 200px;
+    color: red;
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .wheel__dot {
@@ -54,19 +58,19 @@
     outline-offset: 10px;
 }
 
-.wheel::before {
-    content: "90";
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
+/*.wheel::before {*/
+/*    content: "90";*/
+/*    position: absolute;*/
+/*    right: 10px;*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*}*/
 
-.wheel::after {
-    content: "0";
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-}
+/*.wheel::after {*/
+/*    content: "0";*/
+/*    position: absolute;*/
+/*    top: 10px;*/
+/*    left: 50%;*/
+/*    transform: translateX(-50%);*/
+/*    width: 2px;*/
+/*}*/
