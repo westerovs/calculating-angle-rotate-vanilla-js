@@ -9,6 +9,7 @@
 .page {
     min-height: 100%;
     overflow: hidden;
+    user-select: none;
 }
 
 .page-body {
@@ -21,23 +22,16 @@
 }
 
 .wrapper {
-    /*outline: 2px solid gold;*/
-    /*position: absolute;*/
-    /*position: relative;*/
-    /*left: 250px;*/
-    /*top: 250px;*/
-    /*width: 291px;*/
-    /*height: 291px;*/
+
 }
 
-.wheel {
+.part {
     position: absolute;
     width: 200px;
     height: 200px;
     border: 1px solid rgba(226, 226, 226, 0.3);
     /*border-radius: 50%;*/
     background-image: linear-gradient(black, black, gray, black, black);
-    /*transform-origin: center;*/
     z-index: 1;
     line-height: 200px;
     color: red;
@@ -58,20 +52,3 @@
     outline: 1px dashed gold;
     outline-offset: 10px;
 }
-
-/*.wheel::before {*/
-/*    content: "90";*/
-/*    position: absolute;*/
-/*    right: 10px;*/
-/*    top: 50%;*/
-/*    transform: translateY(-50%);*/
-/*}*/
-
-/*.wheel::after {*/
-/*    content: "0";*/
-/*    position: absolute;*/
-/*    top: 10px;*/
-/*    left: 50%;*/
-/*    transform: translateX(-50%);*/
-/*    width: 2px;*/
-/*}*/

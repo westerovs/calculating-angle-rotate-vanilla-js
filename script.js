@@ -6,11 +6,11 @@ const Anchor = {
     B_R   : 'bottom right'
 }
 
-class Wheel {
+class Part {
     constructor(x, y, transformOrigin, name) {
         this.block = null
-        this.positionWheelX = x
-        this.positionWheelY = y
+        this.positionPartX = x
+        this.positionPartY = y
         this.transformOrigin = transformOrigin
         this.name = name
 
@@ -34,10 +34,10 @@ class Wheel {
     create = () => {
         const parent = document.querySelector('.wrapper')
         this.block = document.createElement('div')
-        this.block.className = 'wheel'
+        this.block.className = 'part'
         this.block.style.transform = `rotate(${ this.startProgress }deg)`
-        this.block.style.top = `${ this.positionWheelY }px`
-        this.block.style.left = `${ this.positionWheelX }px`
+        this.block.style.top = `${ this.positionPartY }px`
+        this.block.style.left = `${ this.positionPartX }px`
         this.block.style.transformOrigin = this.transformOrigin
         this.block.innerHTML = this.name
         
@@ -85,8 +85,8 @@ class Wheel {
     }
 }
 
-new Wheel(200, 200, Anchor.T_L, 'T_L')
-new Wheel(400, 400, Anchor.CENTER, 'center')
-new Wheel(600, 200, Anchor.T_R, 'T_R')
-new Wheel(200, 600, Anchor.B_L, 'B_L')
-new Wheel(600, 600, Anchor.B_R, 'B_R')
+new Part(200, 200, Anchor.T_L, 'T_L')
+new Part(400, 400, Anchor.CENTER, 'center')
+new Part(600, 200, Anchor.T_R, 'T_R')
+new Part(200, 600, Anchor.B_L, 'B_L')
+new Part(600, 600, Anchor.B_R, 'B_R')
